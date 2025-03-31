@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Котики</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <h1>Мои любимые котики</h1>
+    <div class="cats-container" id="catsContainer"></div>
+    <script src="/cats.js"></script>
+    <script>
+      const catsContainer = document.getElementById("catsContainer");
+
+      cats.forEach((cat) => {
+        const catCard = document.createElement("div");
+        catCard.className = "cat-card";
+
+        const stars = "★".repeat(cat.rate) + "☆".repeat(10 - cat.rate);
+
+        catCard.innerHTML = `
+                <img src="${cat.img_link}" alt="${cat.name}" class="cat-image">
+                <div class="cat-info">
+                    <h3 class="cat-name">${cat.name} ${
+          cat.favourite ? '<span class="favourite">♥</span>' : ""
+        }</h3>
+                    <p class="cat-age">Возраст: ${cat.age} ${getAgeText(
+          cat.age
+        )}</p>
+                    <p class="cat-rate">Рейтинг: <span class="rate-stars">${stars}</span> (${
+          cat.rate
+        }/10)</p>
+                    <p class="cat-description">${cat.description}</p>
+                </div>
+            `;
+
+        catsContainer.appendChild(catCard);
+      });
+
+      function getAgeText(age) {
+        if (age % 10 === 1 && age % 100 !== 11) {
+          return "год";
+        } else if (
+          [2, 3, 4].includes(age % 10) &&
+          ![12, 13, 14].includes(age % 100)
+        ) {
+          return "года";
+        } else {
+          return "лет";
+        }
+      }
+    </script>
+  </body>
+</html>
